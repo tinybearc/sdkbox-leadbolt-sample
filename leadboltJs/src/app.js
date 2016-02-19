@@ -23,8 +23,15 @@ var HelloWorldLayer = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(32);
 
         var menu = new cc.Menu(
-            new cc.MenuItemFont("clickme", function () {
-                invokeSDK();
+            new cc.MenuItemFont("cache", function () {
+                sdkbox.PluginLeadBolt.loadModuleToCache("ad1");
+            }, this),
+            new cc.MenuItemFont("show", function () {
+                if (sdkbox.PluginLeadBolt.isAdReady("ad1")) {
+                    sdkbox.PluginLeadBolt.loadModule("ad1");
+                } else {
+                    console.log("ad is not ready")
+                }
             }, this)
             );
         menu.setPosition(size.width/2, size.height/2);
@@ -37,54 +44,31 @@ var HelloWorldLayer = cc.Layer.extend({
                 return
             }
 
-            if ("undefined" != typeof(sdkbox.PluginAppodeal)) {
-                var plugin = sdkbox.PluginAppodeal
+            if ("undefined" != typeof(sdkbox.PluginLeadBolt)) {
+                var plugin = sdkbox.PluginLeadBolt
                 plugin.setListener({
-                    onBannerDidLoadAd: function() { cc.log("onBannerDidLoadAd") },
-                    onBannerDidFailToLoadAd: function() { cc.log("onBannerDidFailToLoadAd") },
-                    onBannerDidClick: function() { cc.log("onBannerDidClick") },
-                    onBannerPresent: function() { cc.log("onBannerPresent") },
-                    onInterstitialDidLoadAd: function() { cc.log("onInterstitialDidLoadAd") },
-                    onInterstitialDidFailToLoadAd: function() { cc.log("onInterstitialDidFailToLoadAd") },
-                    onInterstitialWillPresent: function() { cc.log("onInterstitialWillPresent") },
-                    onInterstitialDidDismiss: function() { cc.log("onInterstitialDidDismiss") },
-                    onInterstitialDidClick: function() { cc.log("onInterstitialDidClick") },
-                    onVideoDidLoadAd: function() { cc.log("onVideoDidLoadAd") },
-                    onVideoDidFailToLoadAd: function() { cc.log("onVideoDidFailToLoadAd") },
-                    onVideoDidPresent: function() { cc.log("onVideoDidPresent") },
-                    onVideoWillDismiss: function() { cc.log("onVideoWillDismiss") },
-                    onVideoDidFinish: function() { cc.log("onVideoDidFinish") }
+                  onModuleLoaded: function(placement) {
+                    console.log("onModuleLoaded:" + placement)
+                  },
+                  onModuleClosed: function(placement) {
+                    console.log("onModuleClosed:" + placement)
+                  },
+                  onModuleClicked: function(placement) {
+                    console.log("onModuleClicked:" + placement)
+                  },
+                  onModuleCached: function(placement) {
+                    console.log("onModuleCached:" + placement)
+                  },
+                  onModuleFailed: function(placement, error, cached) {
+                    console.log("onModuleFailed:" + placement + " error:" + error + " cached:" + cached)
+                  },
+                  onMediaFinished: function(viewCompleted) {
+                    console.log("onMediaFinished:" + viewCompleted)
+                  }
                 })
                 plugin.init()
-
-                plugin.setDebugEnabled(true);
-                plugin.setUserVkId("user id");
-                plugin.setUserFacebookId("facebook id");
-                plugin.setUserEmail("test@sdkbox.com");
-                plugin.setUserBirthday("11/11/1999"); //DD/MM/YYYY
-                plugin.setUserAge(11);
-                plugin.setUserGender(1);
-                plugin.setUserOccupation(2);
-                plugin.setUserRelationship(1);
-                plugin.setUserSmokingAttitude(0);
-                plugin.setUserAlcoholAttitude(1);
-                plugin.setUserInterests("game");
-                plugin.cacheAd(15);
             } else {
                 console.log("no plugin init")
-            }
-        }
-        var invokeSDK = function() {
-            if ("undefined" == typeof(sdkbox)) {
-                console.log("sdkbox is not exist")
-                return
-            }
-
-            if ("undefined" != typeof(sdkbox.PluginAppodeal)) {
-                var plugin = sdkbox.PluginAppodeal
-                plugin.showAd(1);
-            } else {
-                console.log("no plugin invoked")
             }
         }
 

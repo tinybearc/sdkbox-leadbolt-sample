@@ -1,8 +1,5 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
-#ifdef SDKBOX_ENABLED
-#include "PluginLeadBolt/PluginLeadBolt.h"
-#endif
 
 USING_NS_CC;
 
@@ -26,9 +23,6 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-#ifdef SDKBOX_ENABLED
-    sdkbox::PluginLeadBolt::init();
-#endif
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
