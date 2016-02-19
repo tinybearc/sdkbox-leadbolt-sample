@@ -1,0 +1,22 @@
+{
+    "android": {
+        "LeadBolt": {
+            "api_key": "8uc8Kd5b6LoyJZCAsFUCY2sWmSJkXZ6c", 
+            "ads": {
+                "ad1": {
+                    "name": "inapp"
+                }
+            }
+        }
+    }, 
+    "ios": {
+        "LeadBolt": {
+            "api_key": "8uc8Kd5b6LoyJZCAsFUCY2sWmSJkXZ6c", 
+            "ads": {
+                "ad1": {
+                    "name": "inapp"
+                }
+            }
+        }
+    }
+}
