@@ -98,10 +98,5 @@ bool js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange(JSContext *cx, uint32_t argc
 #elif defined(JS_VERSION)
 JSBool js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
-#if defined(MOZJS_MAJOR_VERSION)
-bool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp);
-#elif defined(JS_VERSION)
-JSBool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp);
-#endif
 #endif
 

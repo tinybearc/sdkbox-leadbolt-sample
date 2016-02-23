@@ -19,7 +19,7 @@ public:
 
     jsval _paramVal[3];
     int _paramLen;
-    
+
     std::string _placement;
     std::string _error;
     bool _bool;
@@ -210,6 +210,44 @@ JSBool js_PluginLeadBoltJS_PluginLeadBolt_setListener(JSContext *cx, uint32_t ar
     return false;
 }
 
+#if defined(MOZJS_MAJOR_VERSION)
+#if MOZJS_MAJOR_VERSION >= 33
+bool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp)
+#else
+bool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp)
+#endif
+#elif defined(JS_VERSION)
+JSBool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp)
+#endif
+{
+    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+    bool ok = true;
+
+    do {
+        if (argc == 2) {
+            std::string arg0;
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+            if (!ok) { ok = true; break; }
+            double arg1;
+            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
+            if (!ok) { ok = true; break; }
+            sdkbox::PluginLeadBolt::event(arg0, arg1);
+            return true;
+        }
+    } while (0);
+
+    do {
+        if (argc == 1) {
+            std::string arg0;
+            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+            if (!ok) { ok = true; break; }
+            sdkbox::PluginLeadBolt::event(arg0);
+            return true;
+        }
+    } while (0);
+    JS_ReportError(cx, "js_PluginLeadBoltJS_PluginLeadBolt_event : wrong number of arguments");
+    return false;
+}
 
 
 #if defined(MOZJS_MAJOR_VERSION) and MOZJS_MAJOR_VERSION >= 26
@@ -250,6 +288,7 @@ void register_all_PluginLeadBoltJS_helper(JSContext* cx, JS::HandleObject global
     sdkbox::getJsObjOrCreat(cx, global, "sdkbox.PluginLeadBolt", &pluginObj);
 
     JS_DefineFunction(cx, pluginObj, "setListener", js_PluginLeadBoltJS_PluginLeadBolt_setListener, 1, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, pluginObj, "event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_READONLY | JSPROP_PERMANENT);
 
     leadbolt_register_constants(cx, pluginObj);
 }
@@ -259,6 +298,7 @@ void register_all_PluginLeadBoltJS_helper(JSContext* cx, JSObject* global) {
     sdkbox::getJsObjOrCreat(cx, JS::RootedObject(cx, global), "sdkbox.PluginLeadBolt", &pluginObj);
 
     JS_DefineFunction(cx, pluginObj, "setListener", js_PluginLeadBoltJS_PluginLeadBolt_setListener, 1, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, pluginObj, "event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_READONLY | JSPROP_PERMANENT);
 
     leadbolt_register_constants(cx, pluginObj);
 }
@@ -270,6 +310,7 @@ void register_all_PluginLeadBoltJS_helper(JSContext* cx, JSObject* global) {
     pluginVal = sdkbox::getJsObjOrCreat(cx, global, "sdkbox.PluginLeadBolt", &pluginObj);
 
     JS_DefineFunction(cx, pluginObj, "setListener", js_PluginLeadBoltJS_PluginLeadBolt_setListener, 1, JSPROP_READONLY | JSPROP_PERMANENT);
+    JS_DefineFunction(cx, pluginObj, "event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_READONLY | JSPROP_PERMANENT);
 
     leadbolt_register_constants(cx, pluginObj);
 }

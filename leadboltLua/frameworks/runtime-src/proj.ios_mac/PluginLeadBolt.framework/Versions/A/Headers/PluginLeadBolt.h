@@ -75,18 +75,13 @@ namespace sdkbox {
         /*
          * Transaction Events
          */
-        static void transaction(const std::string& name, float floatValue, const std::string& currencyCode);
-        static void transaction(const std::string& name, float floatValue, const std::string& currencyCode, bool instant);
-        static void transaction(const std::string& name, float floatValue, const std::string& currencyCode, const std::string& ref);
-        static void transaction(const std::string& name, float floatValue, const std::string& currencyCode, const std::string& ref, bool instant);
+        static void transaction(const std::string& name, float floatValue, const std::string& currencyCode, const std::string& ref = "", bool instant = false);
 
         /*
          * Module functions
          */
-        static void loadModule(const std::string& placement);
-        static void loadModule(const std::string& placement, const std::string& userData);
-        static void loadModuleToCache(const std::string& placement);
-        static void loadModuleToCache(const std::string& placement, const std::string& userData);
+        static void loadModule(const std::string& placement, const std::string& userData = "");
+        static void loadModuleToCache(const std::string& placement, const std::string& userData = "");
         static void destroyModule();
 
         /*

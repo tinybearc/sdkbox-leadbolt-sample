@@ -143,89 +143,107 @@ JSBool js_PluginLeadBoltJS_PluginLeadBolt_setCrashHandlerStatus(JSContext *cx, u
     return JS_FALSE;
 }
 #endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginLeadBoltJS_PluginLeadBolt_transaction(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    
-    do {
-        if (argc == 4) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            double arg1;
-            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            std::string arg2;
-            ok &= jsval_to_std_string(cx, args.get(2), &arg2);
-            if (!ok) { ok = true; break; }
-            bool arg3;
-            arg3 = JS::ToBoolean(args.get(3));
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 3) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            double arg1;
-            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            std::string arg2;
-            ok &= jsval_to_std_string(cx, args.get(2), &arg2);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 4) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            double arg1;
-            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            std::string arg2;
-            ok &= jsval_to_std_string(cx, args.get(2), &arg2);
-            if (!ok) { ok = true; break; }
-            std::string arg3;
-            ok &= jsval_to_std_string(cx, args.get(3), &arg3);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 5) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            double arg1;
-            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            std::string arg2;
-            ok &= jsval_to_std_string(cx, args.get(2), &arg2);
-            if (!ok) { ok = true; break; }
-            std::string arg3;
-            ok &= jsval_to_std_string(cx, args.get(3), &arg3);
-            if (!ok) { ok = true; break; }
-            bool arg4;
-            arg4 = JS::ToBoolean(args.get(4));
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3, arg4);
-            return true;
-        }
-    } while (0);
+    if (argc == 3) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
+        ok &= jsval_to_std_string(cx, args.get(2), &arg2);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_transaction : Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2);
+        args.rval().setUndefined();
+        return true;
+    }
+    if (argc == 4) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
+        ok &= jsval_to_std_string(cx, args.get(2), &arg2);
+        ok &= jsval_to_std_string(cx, args.get(3), &arg3);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_transaction : Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
+        args.rval().setUndefined();
+        return true;
+    }
+    if (argc == 5) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        bool arg4;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
+        ok &= jsval_to_std_string(cx, args.get(2), &arg2);
+        ok &= jsval_to_std_string(cx, args.get(3), &arg3);
+        arg4 = JS::ToBoolean(args.get(4));
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_transaction : Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3, arg4);
+        args.rval().setUndefined();
+        return true;
+    }
     JS_ReportError(cx, "js_PluginLeadBoltJS_PluginLeadBolt_transaction : wrong number of arguments");
     return false;
 }
+#elif defined(JS_VERSION)
+JSBool js_PluginLeadBoltJS_PluginLeadBolt_transaction(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    JSBool ok = JS_TRUE;
+    if (argc == 3) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= sdkbox::js_to_number(cx, argv[1], &arg1);
+        ok &= jsval_to_std_string(cx, argv[2], &arg2);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    if (argc == 4) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= sdkbox::js_to_number(cx, argv[1], &arg1);
+        ok &= jsval_to_std_string(cx, argv[2], &arg2);
+        ok &= jsval_to_std_string(cx, argv[3], &arg3);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    if (argc == 5) {
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        bool arg4;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= sdkbox::js_to_number(cx, argv[1], &arg1);
+        ok &= jsval_to_std_string(cx, argv[2], &arg2);
+        ok &= jsval_to_std_string(cx, argv[3], &arg3);
+        arg4 = JS::ToBoolean(argv[4]);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3, arg4);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
 #if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginLeadBoltJS_PluginLeadBolt_setGender(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -508,66 +526,112 @@ JSBool js_PluginLeadBoltJS_PluginLeadBolt_startSession(JSContext *cx, uint32_t a
     return JS_FALSE;
 }
 #endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginLeadBoltJS_PluginLeadBolt_loadModuleToCache(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= jsval_to_std_string(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::loadModuleToCache(arg0, arg1);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::loadModuleToCache(arg0);
-            return true;
-        }
-    } while (0);
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_loadModuleToCache : Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_loadModuleToCache : Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0, arg1);
+        args.rval().setUndefined();
+        return true;
+    }
     JS_ReportError(cx, "js_PluginLeadBoltJS_PluginLeadBolt_loadModuleToCache : wrong number of arguments");
     return false;
 }
+#elif defined(JS_VERSION)
+JSBool js_PluginLeadBoltJS_PluginLeadBolt_loadModuleToCache(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    JSBool ok = JS_TRUE;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= jsval_to_std_string(cx, argv[1], &arg1);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0, arg1);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
+#if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginLeadBoltJS_PluginLeadBolt_loadModule(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
-    
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            std::string arg1;
-            ok &= jsval_to_std_string(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::loadModule(arg0, arg1);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::loadModule(arg0);
-            return true;
-        }
-    } while (0);
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_loadModule : Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModule(arg0);
+        args.rval().setUndefined();
+        return true;
+    }
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+        ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+        JSB_PRECONDITION2(ok, cx, false, "js_PluginLeadBoltJS_PluginLeadBolt_loadModule : Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModule(arg0, arg1);
+        args.rval().setUndefined();
+        return true;
+    }
     JS_ReportError(cx, "js_PluginLeadBoltJS_PluginLeadBolt_loadModule : wrong number of arguments");
     return false;
 }
+#elif defined(JS_VERSION)
+JSBool js_PluginLeadBoltJS_PluginLeadBolt_loadModule(JSContext *cx, uint32_t argc, jsval *vp)
+{
+    jsval *argv = JS_ARGV(cx, vp);
+    JSBool ok = JS_TRUE;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModule(arg0);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    if (argc == 2) {
+        std::string arg0;
+        std::string arg1;
+        ok &= jsval_to_std_string(cx, argv[0], &arg0);
+        ok &= jsval_to_std_string(cx, argv[1], &arg1);
+        JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+        sdkbox::PluginLeadBolt::loadModule(arg0, arg1);
+        JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return JS_TRUE;
+    }
+    JS_ReportError(cx, "wrong number of arguments");
+    return JS_FALSE;
+}
+#endif
 #if defined(MOZJS_MAJOR_VERSION)
 bool js_PluginLeadBoltJS_PluginLeadBolt_setFramework(JSContext *cx, uint32_t argc, jsval *vp)
 {
@@ -658,36 +722,6 @@ JSBool js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange(JSContext *cx, uint32_t ar
     return JS_FALSE;
 }
 #endif
-bool js_PluginLeadBoltJS_PluginLeadBolt_event(JSContext *cx, uint32_t argc, jsval *vp)
-{
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-    bool ok = true;
-    
-    do {
-        if (argc == 2) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            double arg1;
-            ok &= sdkbox::js_to_number(cx, args.get(1), &arg1);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::event(arg0, arg1);
-            return true;
-        }
-    } while (0);
-    
-    do {
-        if (argc == 1) {
-            std::string arg0;
-            ok &= jsval_to_std_string(cx, args.get(0), &arg0);
-            if (!ok) { ok = true; break; }
-            sdkbox::PluginLeadBolt::event(arg0);
-            return true;
-        }
-    } while (0);
-    JS_ReportError(cx, "js_PluginLeadBoltJS_PluginLeadBolt_event : wrong number of arguments");
-    return false;
-}
 
 
 void js_PluginLeadBoltJS_PluginLeadBolt_finalize(JSFreeOp *fop, JSObject *obj) {
@@ -755,7 +789,6 @@ void js_register_PluginLeadBoltJS_PluginLeadBolt(JSContext *cx, JS::HandleObject
         JS_FN("setFramework", js_PluginLeadBoltJS_PluginLeadBolt_setFramework, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("destroyModule", js_PluginLeadBoltJS_PluginLeadBolt_destroyModule, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setAgeRange", js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -831,7 +864,6 @@ void js_register_PluginLeadBoltJS_PluginLeadBolt(JSContext *cx, JSObject *global
         JS_FN("setFramework", js_PluginLeadBoltJS_PluginLeadBolt_setFramework, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("destroyModule", js_PluginLeadBoltJS_PluginLeadBolt_destroyModule, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setAgeRange", js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
@@ -898,7 +930,6 @@ void js_register_PluginLeadBoltJS_PluginLeadBolt(JSContext *cx, JSObject *global
         JS_FN("setFramework", js_PluginLeadBoltJS_PluginLeadBolt_setFramework, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("destroyModule", js_PluginLeadBoltJS_PluginLeadBolt_destroyModule, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("setAgeRange", js_PluginLeadBoltJS_PluginLeadBolt_setAgeRange, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("event", js_PluginLeadBoltJS_PluginLeadBolt_event, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 

@@ -46,6 +46,7 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_transaction(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
+
 #if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
 #endif
@@ -54,97 +55,66 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_transaction(lua_State* tolua_S)
     if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginLeadBolt",0,&tolua_err)) goto tolua_lerror;
 #endif
 
-    argc = lua_gettop(tolua_S)-1;
+    argc = lua_gettop(tolua_S) - 1;
 
-    do 
+    if (argc == 3)
     {
-        if (argc == 4)
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            double arg1;
-            ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg2;
-            ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            bool arg3;
-            ok &= luaval_to_boolean(tolua_S, 5,&arg3, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_transaction'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    do 
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    if (argc == 4)
     {
-        if (argc == 3)
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_std_string(tolua_S, 5,&arg3, "sdkbox.PluginLeadBolt:transaction");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            double arg1;
-            ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg2;
-            ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_transaction'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    do 
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    if (argc == 5)
     {
-        if (argc == 4)
+        std::string arg0;
+        double arg1;
+        std::string arg2;
+        std::string arg3;
+        bool arg4;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_std_string(tolua_S, 5,&arg3, "sdkbox.PluginLeadBolt:transaction");
+        ok &= luaval_to_boolean(tolua_S, 6,&arg4, "sdkbox.PluginLeadBolt:transaction");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            double arg1;
-            ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg2;
-            ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg3;
-            ok &= luaval_to_std_string(tolua_S, 5,&arg3, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_transaction'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    do 
-    {
-        if (argc == 5)
-        {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            double arg1;
-            ok &= luaval_to_number(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg2;
-            ok &= luaval_to_std_string(tolua_S, 4,&arg2, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            std::string arg3;
-            ok &= luaval_to_std_string(tolua_S, 5,&arg3, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            bool arg4;
-            ok &= luaval_to_boolean(tolua_S, 6,&arg4, "sdkbox.PluginLeadBolt:transaction");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3, arg4);
-            lua_settop(tolua_S, 1);
-            return 1;
-        }
-    } while (0);
-    ok  = true;
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d", "sdkbox.PluginLeadBolt:transaction",argc, 5);
+        sdkbox::PluginLeadBolt::transaction(arg0, arg1, arg2, arg3, arg4);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginLeadBolt:transaction",argc, 3);
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
@@ -476,6 +446,7 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_loadModuleToCache(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
+
 #if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
 #endif
@@ -484,38 +455,37 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_loadModuleToCache(lua_State* tolua_S)
     if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginLeadBolt",0,&tolua_err)) goto tolua_lerror;
 #endif
 
-    argc = lua_gettop(tolua_S)-1;
+    argc = lua_gettop(tolua_S) - 1;
 
-    do 
+    if (argc == 1)
     {
-        if (argc == 2)
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModuleToCache");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModuleToCache");
-            if (!ok) { break; }
-            std::string arg1;
-            ok &= luaval_to_std_string(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:loadModuleToCache");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::loadModuleToCache(arg0, arg1);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_loadModuleToCache'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    do 
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    if (argc == 2)
     {
-        if (argc == 1)
+        std::string arg0;
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModuleToCache");
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:loadModuleToCache");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModuleToCache");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::loadModuleToCache(arg0);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_loadModuleToCache'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d", "sdkbox.PluginLeadBolt:loadModuleToCache",argc, 1);
+        sdkbox::PluginLeadBolt::loadModuleToCache(arg0, arg1);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginLeadBolt:loadModuleToCache",argc, 1);
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
@@ -527,6 +497,7 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_loadModule(lua_State* tolua_S)
 {
     int argc = 0;
     bool ok  = true;
+
 #if COCOS2D_DEBUG >= 1
     tolua_Error tolua_err;
 #endif
@@ -535,38 +506,37 @@ int lua_PluginLeadBoltLua_PluginLeadBolt_loadModule(lua_State* tolua_S)
     if (!tolua_isusertable(tolua_S,1,"sdkbox.PluginLeadBolt",0,&tolua_err)) goto tolua_lerror;
 #endif
 
-    argc = lua_gettop(tolua_S)-1;
+    argc = lua_gettop(tolua_S) - 1;
 
-    do 
+    if (argc == 1)
     {
-        if (argc == 2)
+        std::string arg0;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModule");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModule");
-            if (!ok) { break; }
-            std::string arg1;
-            ok &= luaval_to_std_string(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:loadModule");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::loadModule(arg0, arg1);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_loadModule'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    do 
+        sdkbox::PluginLeadBolt::loadModule(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    if (argc == 2)
     {
-        if (argc == 1)
+        std::string arg0;
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModule");
+        ok &= luaval_to_std_string(tolua_S, 3,&arg1, "sdkbox.PluginLeadBolt:loadModule");
+        if(!ok)
         {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0, "sdkbox.PluginLeadBolt:loadModule");
-            if (!ok) { break; }
-            sdkbox::PluginLeadBolt::loadModule(arg0);
-            lua_settop(tolua_S, 1);
-            return 1;
+            tolua_error(tolua_S,"invalid arguments in function 'lua_PluginLeadBoltLua_PluginLeadBolt_loadModule'", nullptr);
+            return 0;
         }
-    } while (0);
-    ok  = true;
-    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d", "sdkbox.PluginLeadBolt:loadModule",argc, 1);
+        sdkbox::PluginLeadBolt::loadModule(arg0, arg1);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d\n ", "sdkbox.PluginLeadBolt:loadModule",argc, 1);
     return 0;
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
