@@ -31,6 +31,5 @@ $(call import-add-path,$(LOCAL_PATH))
 
 
 $(call import-module,scripting/js-bindings/proj.android/prebuilt-mk)
-$(call import-module,tools/simulator/libsimulator/proj.android/prebuilt-mk)
 $(call import-module, ./sdkbox)
 $(call import-module, ./pluginleadbolt)
